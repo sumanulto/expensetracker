@@ -46,7 +46,7 @@ NEXTAUTH_SECRET=your_nextauth_secret
 
 Run the following SQL scripts to set up your database:
 
-1.**All in one query runner**: `scripts/one-run-schema.sql`
+1. **All in one query runner**: `scripts/one-run-schema.sql`
 2. **Create Database and Tables**: `scripts/create-database.sql`
 3. **Seed Default Data**: `scripts/seed-data.sql`
 4. **Update Schema**: `scripts/update-budget-schema.sql`
