@@ -65,8 +65,8 @@ POST /api/auth/register
 ##### Request Body
 ```json
 {
-  "username": "john_doe",
-  "email": "john@example.com",
+  "username": "sumanulto",
+  "email": "suman@kraftamine.com",
   "password": "securePassword123"
 }
 ```
@@ -77,8 +77,8 @@ POST /api/auth/register
   "message": "User created successfully",
   "user": {
     "id": 1,
-    "username": "john_doe",
-    "email": "john@example.com"
+    "username": "sumanulto",
+    "email": "suman@kraftamine.com"
   }
 }
 ```
@@ -91,7 +91,7 @@ POST /api/auth/login
 ##### Request Body
 ```json
 {
-  "username": "john_doe",
+  "username": "sumanulto",
   "password": "securePassword123"
 }
 ```
@@ -102,8 +102,8 @@ POST /api/auth/login
   "message": "Login successful",
   "user": {
     "id": 1,
-    "username": "john_doe",
-    "email": "john@example.com"
+    "username": "sumanulto",
+    "email": "suman@kraftamine.com"
   }
 }
 ```
@@ -132,13 +132,13 @@ GET /api/expenses
 [
   {
     "id": 1,
-    "date": "2024-01-15",
+    "date": "2025-06-01",
     "category": "Food",
     "amount": 25.50,
     "description": "Lunch at restaurant",
     "user_id": 1,
     "budget_id": 2,
-    "created_at": "2024-01-15T10:30:00.000Z"
+    "created_at": "2025-06-01T10:30:00.000Z"
   }
 ]
 ```
@@ -151,7 +151,7 @@ POST /api/expenses
 ##### Request Body
 ```json
 {
-  "date": "2024-01-15",
+  "date": "2025-06-01",
   "category": "Food",
   "amount": 25.50,
   "description": "Lunch at restaurant",
@@ -191,13 +191,13 @@ GET /api/budgets
 [
   {
     "id": 1,
-    "name": "Monthly Budget 2024",
+    "name": "Monthly Budget 2025",
     "monthly_income": 5000.00,
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31",
+    "start_date": "2025-06-01",
+    "end_date": "2025-06-05",
     "is_active": true,
     "user_id": 1,
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "created_at": "2025-06-01T00:00:00.000Z"
   }
 ]
 ```
@@ -212,8 +212,8 @@ POST /api/budgets
 {
   "name": "Monthly Budget 2024",
   "monthlyIncome": 5000.00,
-  "startDate": "2024-01-01",
-  "endDate": "2024-12-31",
+  "startDate": "2025-06-01",
+  "endDate": "2025-06-05",
   "categories": [
     {
       "name": "Food",
@@ -246,8 +246,8 @@ GET /api/budgets/[id]
   "id": 1,
   "name": "Monthly Budget 2024",
   "monthly_income": 5000.00,
-  "start_date": "2024-01-01",
-  "end_date": "2024-12-31",
+  "start_date": "2025-06-01",
+  "end_date": "2025-06-05",
   "categories": [
     {
       "category_name": "Food",
@@ -273,8 +273,8 @@ PUT /api/budgets/[id]
 {
   "name": "Updated Monthly Budget 2024",
   "monthlyIncome": 5500.00,
-  "startDate": "2024-01-01",
-  "endDate": "2024-12-31",
+  "startDate": "2025-06-01",
+  "endDate": "2025-06-05",
   "categories": [
     {
       "name": "Food",
@@ -333,11 +333,11 @@ GET /api/budgets/active
   "id": 1,
   "name": "Monthly Budget 2024",
   "monthly_income": 5000.00,
-  "start_date": "2024-01-01",
-  "end_date": "2024-12-31",
+  "start_date": "2025-06-01",
+  "end_date": "2025-06-05",
   "is_active": true,
   "user_id": 1,
-  "created_at": "2024-01-01T00:00:00.000Z"
+  "created_at": "2025-06-01T00:00:00.000Z"
 }
 ```
 
