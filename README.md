@@ -210,7 +210,7 @@ POST /api/budgets
 ##### Request Body
 ```json
 {
-  "name": "Monthly Budget 2024",
+  "name": "Monthly Budget 2025",
   "monthlyIncome": 5000.00,
   "startDate": "2025-06-01",
   "endDate": "2025-06-05",
@@ -244,7 +244,7 @@ GET /api/budgets/[id]
 ```json
 {
   "id": 1,
-  "name": "Monthly Budget 2024",
+  "name": "Monthly Budget 2025",
   "monthly_income": 5000.00,
   "start_date": "2025-06-01",
   "end_date": "2025-06-05",
@@ -271,7 +271,7 @@ PUT /api/budgets/[id]
 ##### Request Body
 ```json
 {
-  "name": "Updated Monthly Budget 2024",
+  "name": "Updated Monthly Budget 2025",
   "monthlyIncome": 5500.00,
   "startDate": "2025-06-01",
   "endDate": "2025-06-05",
@@ -331,7 +331,7 @@ GET /api/budgets/active
 ```json
 {
   "id": 1,
-  "name": "Monthly Budget 2024",
+  "name": "Monthly Budget 2025",
   "monthly_income": 5000.00,
   "start_date": "2025-06-01",
   "end_date": "2025-06-05",
@@ -363,11 +363,11 @@ GET /api/analytics
   ],
   "timeData": [
     {
-      "month": "2024-01",
+      "month": "2025-01",
       "total": 650.00
     },
     {
-      "month": "2024-02",
+      "month": "2025-02",
       "total": 720.00
     }
   ]
