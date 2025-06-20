@@ -418,6 +418,15 @@ The API uses JWT (JSON Web Tokens) for authentication. Tokens are stored in HTTP
 
 ## Database Schema
 
+### One run schema
+```
+- Go to your sql database workbench/myphpadmin
+- Select import database
+- Select the one-run-schema.sql file
+- All tables will automatically gets imported
+```
+
+#### Still like to run sql queries go for it.
 ### Users Table
 ```sql
 CREATE TABLE users (
@@ -482,6 +491,7 @@ The application supports the following expense categories:
 - Shopping
 - Healthcare
 - Gym
+- ....more
 
 ## Currency Format
 
@@ -511,8 +521,6 @@ npm run lint
 - **Expense Tracking**: Add, view, and delete expenses
 - **Budget Management**: Create and manage multiple budgets
 - **Analytics**: Visual charts and reports
-- **Dark/Light Theme**: Toggle between themes
-- **Responsive Design**: Mobile-friendly interface
 - **Real-time Updates**: Dynamic data updates
 
 ## Security Features
