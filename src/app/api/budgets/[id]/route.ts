@@ -11,19 +11,44 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params
 
   try {
-    const [budgetRows] = (await pool.execute("SELECT * FROM budgets WHERE id = ? AND user_id = ?", [
-      id,
-      user.userId,
-    ])) as any
+    const [budgetRows] = (await pool.execute(
+      `SELECT 
+        id, 
+        name, 
+        monthly_income, 
+        start_date, 
+        end_date, 
+        is_active, 
+        created_at, 
+        updated_at
+      FROM budgets 
+      WHERE id = ? AND user_id = ?`,
+      [id, user.userId],
+    )) as any
 
     if (budgetRows.length === 0) {
       return NextResponse.json({ error: "Budget not found" }, { status: 404 })
     }
 
-    const [categoryRows] = await pool.execute("SELECT * FROM budget_categories WHERE budget_id = ?", [id])
+    const [categoryRows] = await pool.execute(
+      `SELECT 
+        id, 
+        category_name, 
+        allocated_amount, 
+        created_at, 
+        updated_at
+      FROM budget_categories 
+      WHERE budget_id = ?`,
+      [id],
+    )
 
     const [expenseRows] = (await pool.execute(
-      "SELECT category, SUM(amount) as spent FROM expenses WHERE budget_id = ? GROUP BY category",
+      `SELECT 
+        category, 
+        SUM(amount) as spent 
+      FROM expenses 
+      WHERE budget_id = ? 
+      GROUP BY category`,
       [id],
     )) as any
 
@@ -50,12 +75,14 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const body = await request.json()
     const { name, monthlyIncome, startDate, endDate, categories } = body
 
-    console.log("PUT request received for budget:", id)
-    console.log("Request body:", body)
-
     // Validate required fields
     if (!name || !monthlyIncome || !startDate || !endDate) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 })
+    }
+
+    // Validate amounts
+    if (Number(monthlyIncome) <= 0) {
+      return NextResponse.json({ error: "Monthly income must be greater than 0" }, { status: 400 })
     }
 
     // Validate dates
@@ -72,11 +99,9 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     try {
       // Update budget
       const [result] = (await connection.execute(
-        "UPDATE budgets SET name = ?, monthly_income = ?, start_date = ?, end_date = ? WHERE id = ? AND user_id = ?",
-        [name, monthlyIncome, startDate, endDate, id, user.userId],
+        "UPDATE budgets SET name = ?, monthly_income = ?, start_date = ?, end_date = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND user_id = ?",
+        [name, Number(monthlyIncome), startDate, endDate, id, user.userId],
       )) as any
-
-      console.log("Update result:", result)
 
       if (result.affectedRows === 0) {
         await connection.rollback()
@@ -90,11 +115,19 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       // Insert updated budget categories if provided
       if (categories && Array.isArray(categories) && categories.length > 0) {
         for (const category of categories) {
-          if (category.name && category.amount > 0) {
-            await connection.execute(
-              "INSERT INTO budget_categories (budget_id, category_name, allocated_amount) VALUES (?, ?, ?)",
-              [id, category.name, category.amount],
+          if (category.name && Number(category.amount) >= 0) {
+            // Validate category exists
+            const [categoryCheck] = await connection.execute(
+              "SELECT id FROM categories WHERE name = ? AND (user_id IS NULL OR user_id = ?)",
+              [category.name, user.userId],
             )
+
+            if ((categoryCheck as any[]).length > 0) {
+              await connection.execute(
+                "INSERT INTO budget_categories (budget_id, category_name, allocated_amount) VALUES (?, ?, ?)",
+                [id, category.name, Number(category.amount)],
+              )
+            }
           }
         }
       }
@@ -102,7 +135,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       await connection.commit()
       connection.release()
 
-      console.log("Budget updated successfully")
       return NextResponse.json({
         message: "Budget updated successfully",
         success: true,
@@ -110,7 +142,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     } catch (error) {
       await connection.rollback()
       connection.release()
-      console.error("Transaction error:", error)
       throw error
     }
   } catch (error) {
@@ -131,8 +162,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const body = await request.json()
     const { is_active } = body
 
-    console.log(`Updating budget ${id} with is_active: ${is_active}`)
-
     // Start transaction
     const connection = await pool.getConnection()
     await connection.beginTransaction()
@@ -140,15 +169,17 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     try {
       // If setting this budget as active, first deactivate all other budgets for this user
       if (is_active) {
-        await connection.execute("UPDATE budgets SET is_active = FALSE WHERE user_id = ?", [user.userId])
+        await connection.execute(
+          "UPDATE budgets SET is_active = FALSE, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?",
+          [user.userId],
+        )
       }
 
       // Update the specific budget
-      const [result] = (await connection.execute("UPDATE budgets SET is_active = ? WHERE id = ? AND user_id = ?", [
-        is_active,
-        id,
-        user.userId,
-      ])) as any
+      const [result] = (await connection.execute(
+        "UPDATE budgets SET is_active = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND user_id = ?",
+        [is_active, id, user.userId],
+      )) as any
 
       await connection.commit()
       connection.release()
@@ -157,7 +188,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         return NextResponse.json({ error: "Budget not found or not authorized" }, { status: 404 })
       }
 
-      console.log(`Budget ${id} updated successfully`)
       return NextResponse.json({ message: "Budget updated successfully" })
     } catch (error) {
       await connection.rollback()

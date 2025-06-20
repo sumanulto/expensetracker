@@ -9,9 +9,21 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const [rows] = (await pool.execute("SELECT * FROM budgets WHERE user_id = ? AND is_active = TRUE LIMIT 1", [
-      user.userId,
-    ])) as any
+    const [rows] = (await pool.execute(
+      `SELECT 
+        id, 
+        name, 
+        monthly_income, 
+        start_date, 
+        end_date, 
+        is_active, 
+        created_at, 
+        updated_at
+      FROM budgets 
+      WHERE user_id = ? AND is_active = TRUE 
+      LIMIT 1`,
+      [user.userId],
+    )) as any
 
     if (rows.length === 0) {
       return NextResponse.json({ message: "No active budget found" }, { status: 404 })

@@ -272,6 +272,7 @@ export default function EditBudgetPage({ params }: { params: Promise<{ id: strin
                       type="date"
                       value={formData.startDate}
                       onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                      className="w-full cursor-pointer"
                       required
                     />
                   </div>
@@ -284,6 +285,7 @@ export default function EditBudgetPage({ params }: { params: Promise<{ id: strin
                       value={formData.endDate}
                       onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                       min={formData.startDate}
+                      className="w-full cursor-pointer"
                       required
                     />
                   </div>

@@ -171,6 +171,7 @@ export default function AddBudgetPage() {
                       type="date"
                       value={formData.startDate}
                       onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                      className="w-full cursor-pointer"
                       required
                     />
                   </div>
@@ -183,6 +184,7 @@ export default function AddBudgetPage() {
                       value={formData.endDate}
                       onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                       min={formData.startDate}
+                      className="w-full cursor-pointer"
                       required
                     />
                   </div>
