@@ -22,7 +22,7 @@ export function Navigation() {
   ]
 
   return (
-    <header className="bg-red-400 text-white px-6 py-4">
+    <header className="bg-cyan-700 text-white px-6 py-4">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center space-x-8">
           <Link href="/dashboard" className="text-xl font-bold">
