@@ -528,4 +528,3 @@ npm run lint
 
 - [@sumanulto](https://suman.kraftamine.com)
 - Built with Next.js 15 and modern web technologies
-```
