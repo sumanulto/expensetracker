@@ -18,18 +18,9 @@ This project is a comprehensive expense tracking application built with Next.js 
 To deploy this project, you need to install the following dependencies:
 
 ```bash
-npm install next@15.3.3 react@19.0.0 react-dom@19.0.0
-npm install mysql2 bcryptjs jsonwebtoken
-npm install recharts next-themes lucide-react
-npm install @radix-ui/react-accordion @radix-ui/react-alert-dialog
-npm install @radix-ui/react-avatar @radix-ui/react-checkbox
-npm install @radix-ui/react-dialog @radix-ui/react-dropdown-menu
-npm install @radix-ui/react-label @radix-ui/react-radio-group
-npm install @radix-ui/react-select @radix-ui/react-separator
-npm install @radix-ui/react-slot @radix-ui/react-switch
-npm install @radix-ui/react-tabs @radix-ui/react-toast
-npm install class-variance-authority clsx tailwind-merge
-npm install @tailwindcss/postcss tailwindcss@4
+npm install
+or
+npm i
 ```
 
 ## Environment Variables
