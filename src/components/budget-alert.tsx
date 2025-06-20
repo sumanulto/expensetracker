@@ -50,8 +50,8 @@ export function BudgetAlerts() {
     <div className="space-y-4">
       {criticalAlerts.map((alert) => (
         <Alert key={alert.category_name} variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertDescription>
+          <AlertTriangle className="h-4 w-4 text-amber-300" />
+          <AlertDescription className=" dark:text-amber-300">
             <strong>{alert.category_name}</strong>: You've exceeded your budget! Spent{" "}
             {formatCurrency(alert.spent_amount)} of {formatCurrency(alert.allocated_amount)} (
             {alert.percentage_used.toFixed(1)}%)

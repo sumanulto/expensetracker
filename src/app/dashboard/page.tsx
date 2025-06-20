@@ -148,7 +148,7 @@ export default function DashboardPage() {
                     className={level === "warning" ? "border-yellow-500 bg-yellow-50 dark:bg-yellow-950" : ""}
                   >
                     {getBudgetAlertIcon(level)}
-                    <AlertDescription>
+                    <AlertDescription className=" dark:text-amber-300">
                       <strong>{alert.category_name}</strong>: You've spent {formatCurrency(alert.spent_amount)} of{" "}
                       {formatCurrency(alert.allocated_amount)} ({alert.percentage_used.toFixed(1)}%)
                       {level === "danger" && " - Over budget!"}
