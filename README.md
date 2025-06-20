@@ -529,5 +529,3 @@ npm run lint
 - [@sumanulto](https://suman.kraftamine.com)
 - Built with Next.js 15 and modern web technologies
 ```
-
-This comprehensive API documentation follows the same format as your Python API documentation and includes all the endpoints, request/response formats, database schema, and setup instructions for your Next.js Expense Tracker application.
