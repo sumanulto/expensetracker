@@ -25,14 +25,16 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@/src/*": ["./src/*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "jest.config.cjs"
   ], // Removed .next/types here
   "exclude": [
     "node_modules",

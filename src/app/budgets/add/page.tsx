@@ -145,7 +145,7 @@ export default function AddBudgetPage() {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g., Monthly Budget 2024"
+                      placeholder="e.g., Monthly Budget 2025"
                       required
                     />
                   </div>

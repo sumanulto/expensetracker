@@ -2,54 +2,127 @@
 
 This project is a comprehensive expense tracking application built with Next.js 15, TypeScript, and MySQL. The application provides a complete REST API for managing users, expenses, budgets, and analytics with JWT-based authentication.
 
-## Tech Stack
+### 🚨 Smart Alerts
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Database**: MySQL
-- **Authentication**: JWT (JSON Web Tokens)
-- **Styling**: Tailwind CSS v4
-- **UI Components**: shadcn/ui
+- 🟢 **Safe Zone**: Under 80% of budget
+- 🟡 **Warning**: 80-99% of budget usage
+- 🔴 **Over Budget**: Exceeded budget limits
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Backend**: Next.js API Routes, MySQL
+- **Authentication**: JWT with bcryptjs
 - **Charts**: Recharts
-- **Password Hashing**: bcryptjs
+- **Database**: MySQL with connection pooling
+- **Icons**: Lucide React
+- **Testing**: Jest, Supertest, ts-jest
 
-## Libraries to Install
+## 🧪 Testing Framework
 
-To deploy this project, you need to install the following dependencies:
+### Testing Tools Used
 
-```bash
-npm install
-or
-npm i
-```
+- **Jest** - JavaScript testing framework
+- **ts-jest** - TypeScript preprocessor for Jest
+- **Supertest** - HTTP assertion library for API testing
+- **@types/jest** - TypeScript definitions for Jest
 
-## Environment Variables
+### Test Coverage
 
-Create a `.env.local` file in your project root:
+My comprehensive test suite includes:
 
-```env
-# Database Configuration
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=expense_tracker
+#### 📋 Unit Tests (70%+ Coverage)
 
-# JWT Secret
-JWT_SECRET=your_jwt_secret_key_here
+- **Authentication utilities** - Password hashing, JWT token generation/verification
+- **Utility functions** - Currency formatting, number conversion, percentage calculation
+- **Middleware functions** - User authentication and request validation
 
-# Next.js Configuration
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_nextauth_secret
-```
+#### 🔗 Integration Tests
 
-## Database Setup
+- **Database operations** - CRUD operations with real database connections
+- **User management** - User creation, authentication, and data integrity
+- **Expense operations** - Expense creation, categorization, and aggregation
+- **Connection pooling** - Database connection management and concurrent queries
 
-Run the following SQL scripts to set up your database:
+#### 🌐 API Tests
 
-1. **All in one query runner**: `scripts/one-run-schema.sql`
-2. **Create Database and Tables**: `scripts/create-database.sql`
-3. **Seed Default Data**: `scripts/seed-data.sql`
-4. **Update Schema**: `scripts/update-budget-schema.sql`
+- **Authentication endpoints** - Registration, login, logout functionality
+- **Expense endpoints** - Create, read, delete expense operations
+- **Budget endpoints** - Budget CRUD operations and activation
+- **Analytics endpoints** - Data aggregation and reporting
+- **Error handling** - Proper error responses and status codes
+
+### Test Coverage Results
+
+![Test Coverage Screenshot](https://i.ibb.co/Zy7bMws/Screenshot-2025-06-24-133251.png)
+
+**Current Coverage:**
+
+- **Statements**: 72.63%
+- **Branches**: 62.09%
+- **Functions**: 90.47%
+- **Lines**: 72.53%
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- MySQL 8.0+
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/sumaulto/expense-tracker.git
+   cd expense-tracker
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   or
+   npm i
+   ```
+3. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Update `.env.local` with your configuration:
+
+   ```env
+   # Database Configuration
+    DB_HOST=localhost
+    DB_USER=root
+    DB_PASSWORD=your_password
+    DB_NAME=expense_tracker
+
+    # JWT Secret
+    JWT_SECRET=your_jwt_secret_key_here
+
+    # Next.js Configuration
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_SECRET=your_nextauth_secret
+   ```
+
+4. **Set up the database**
+
+   Run the SQL scripts in order:
+
+   1. **All in one query runner**: `scripts/one-run-schema.sql`
+   2. **Create Database and Tables**: `scripts/create-database.sql`
+   3. **Seed Default Data**: `scripts/seed-data.sql`
+   4. **Update Schema**: `scripts/update-budget-schema.sql`
+
+5. **Start the development server**
+   `npm run dev `
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## API Reference
 
@@ -58,11 +131,13 @@ All API endpoints are prefixed with your domain. For local development, use `htt
 ### Authentication APIs
 
 #### Register User
+
 ```http
 POST /api/auth/register
 ```
 
 ##### Request Body
+
 ```json
 {
   "username": "sumanulto",
@@ -72,6 +147,7 @@ POST /api/auth/register
 ```
 
 ##### Response
+
 ```json
 {
   "message": "User created successfully",
@@ -84,11 +160,13 @@ POST /api/auth/register
 ```
 
 #### Login User
+
 ```http
 POST /api/auth/login
 ```
 
 ##### Request Body
+
 ```json
 {
   "username": "sumanulto",
@@ -97,6 +175,7 @@ POST /api/auth/login
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Login successful",
@@ -109,11 +188,13 @@ POST /api/auth/login
 ```
 
 #### Logout User
+
 ```http
 POST /api/auth/logout
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Logged out successfully"
@@ -123,18 +204,20 @@ POST /api/auth/logout
 ### Expense Management APIs
 
 #### Get All Expenses
+
 ```http
 GET /api/expenses
 ```
 
 ##### Response
+
 ```json
 [
   {
     "id": 1,
     "date": "2025-06-01",
     "category": "Food",
-    "amount": 25.50,
+    "amount": 25.5,
     "description": "Lunch at restaurant",
     "user_id": 1,
     "budget_id": 2,
@@ -144,22 +227,25 @@ GET /api/expenses
 ```
 
 #### Add New Expense
+
 ```http
 POST /api/expenses
 ```
 
 ##### Request Body
+
 ```json
 {
   "date": "2025-06-01",
   "category": "Food",
-  "amount": 25.50,
+  "amount": 25.5,
   "description": "Lunch at restaurant",
   "budgetId": 2
 }
 ```
 
 ##### Response
+
 ```json
 {
   "id": 1,
@@ -168,11 +254,13 @@ POST /api/expenses
 ```
 
 #### Delete Expense
+
 ```http
 DELETE /api/expenses/[id]
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Expense deleted successfully"
@@ -182,17 +270,19 @@ DELETE /api/expenses/[id]
 ### Budget Management APIs
 
 #### Get All Budgets
+
 ```http
 GET /api/budgets
 ```
 
 ##### Response
+
 ```json
 [
   {
     "id": 1,
     "name": "Monthly Budget 2025",
-    "monthly_income": 5000.00,
+    "monthly_income": 5000.0,
     "start_date": "2025-06-01",
     "end_date": "2025-06-05",
     "is_active": true,
@@ -203,31 +293,34 @@ GET /api/budgets
 ```
 
 #### Create New Budget
+
 ```http
 POST /api/budgets
 ```
 
 ##### Request Body
+
 ```json
 {
   "name": "Monthly Budget 2025",
-  "monthlyIncome": 5000.00,
+  "monthlyIncome": 5000.0,
   "startDate": "2025-06-01",
   "endDate": "2025-06-05",
   "categories": [
     {
       "name": "Food",
-      "amount": 800.00
+      "amount": 800.0
     },
     {
       "name": "Transportation",
-      "amount": 300.00
+      "amount": 300.0
     }
   ]
 }
 ```
 
 ##### Response
+
 ```json
 {
   "id": 1,
@@ -236,55 +329,60 @@ POST /api/budgets
 ```
 
 #### Get Budget Details
+
 ```http
 GET /api/budgets/[id]
 ```
 
 ##### Response
+
 ```json
 {
   "id": 1,
   "name": "Monthly Budget 2025",
-  "monthly_income": 5000.00,
+  "monthly_income": 5000.0,
   "start_date": "2025-06-01",
   "end_date": "2025-06-05",
   "categories": [
     {
       "category_name": "Food",
-      "allocated_amount": 800.00
+      "allocated_amount": 800.0
     }
   ],
   "expenses": [
     {
       "category": "Food",
-      "spent": 250.00
+      "spent": 250.0
     }
   ]
 }
 ```
 
 #### Update Budget
+
 ```http
 PUT /api/budgets/[id]
 ```
 
 ##### Request Body
+
 ```json
 {
   "name": "Updated Monthly Budget 2025",
-  "monthlyIncome": 5500.00,
+  "monthlyIncome": 5500.0,
   "startDate": "2025-06-01",
   "endDate": "2025-06-05",
   "categories": [
     {
       "name": "Food",
-      "amount": 900.00
+      "amount": 900.0
     }
   ]
 }
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Budget updated successfully"
@@ -292,11 +390,13 @@ PUT /api/budgets/[id]
 ```
 
 #### Activate/Deactivate Budget
+
 ```http
 PATCH /api/budgets/[id]
 ```
 
 ##### Request Body
+
 ```json
 {
   "is_active": true
@@ -304,6 +404,7 @@ PATCH /api/budgets/[id]
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Budget updated successfully"
@@ -311,11 +412,13 @@ PATCH /api/budgets/[id]
 ```
 
 #### Delete Budget
+
 ```http
 DELETE /api/budgets/[id]
 ```
 
 ##### Response
+
 ```json
 {
   "message": "Budget deleted successfully"
@@ -323,16 +426,18 @@ DELETE /api/budgets/[id]
 ```
 
 #### Get Active Budget
+
 ```http
 GET /api/budgets/active
 ```
 
 ##### Response
+
 ```json
 {
   "id": 1,
   "name": "Monthly Budget 2025",
-  "monthly_income": 5000.00,
+  "monthly_income": 5000.0,
   "start_date": "2025-06-01",
   "end_date": "2025-06-05",
   "is_active": true,
@@ -344,34 +449,90 @@ GET /api/budgets/active
 ### Analytics APIs
 
 #### Get Analytics Data
+
 ```http
 GET /api/analytics
 ```
 
 ##### Response
+
 ```json
 {
   "categoryData": [
     {
       "category": "Food",
-      "total": 450.00
+      "total": 450.0
     },
     {
       "category": "Transportation",
-      "total": 200.00
+      "total": 200.0
     }
   ],
   "timeData": [
     {
       "month": "2025-01",
-      "total": 650.00
+      "total": 650.0
     },
     {
       "month": "2025-02",
-      "total": 720.00
+      "total": 720.0
     }
   ]
 }
+```
+
+## 📱 Usage Guide
+
+### Getting Started
+1. **Register** a new account or **Login** with existing credentials
+2. **Create your first budget** with monthly income and category allocations
+3. **Add expenses** and categorize them appropriately
+4. **Monitor your spending** through the dashboard and analytics
+
+### Demo Account
+For testing purposes, use these credentials:
+- **Username**: `demo_user`
+- **Password**: `password123`
+
+### Key Pages
+- **Dashboard** (`/dashboard`) - Overview of your finances with alerts
+- **Expenses** (`/expenses`) - Manage all your expenses
+- **Budgets** (`/budgets`) - Create and manage budgets
+- **Analytics** (`/analytics`) - Visual spending insights
+- **Insights** (`/insights`) - Advanced financial insights
+
+## 🏗️ Project Structure
+
+```
+expense-tracker/
+├── app/                    # Next.js 15 App Router
+│   ├── api/               # API routes
+│   │   ├── auth/          # Authentication endpoints
+│   │   ├── budgets/       # Budget management
+│   │   ├── expenses/      # Expense operations
+│   │   └── analytics/     # Data analytics
+│   ├── dashboard/         # Dashboard page
+│   ├── expenses/          # Expense management pages
+│   ├── budgets/           # Budget management pages
+│   └── globals.css        # Global styles
+├── components/            # Reusable React components
+│   ├── ui/               # shadcn/ui components
+│   ├── navigation.tsx    # Main navigation
+│   └── theme-toggle.tsx  # Theme switcher
+├── lib/                  # Utility libraries
+│   ├── db.ts            # Database connection
+│   ├── auth.ts          # Authentication utilities
+│   └── utils.ts         # Helper functions
+├── __tests__/           # Test files
+│   ├── unit/           # Unit tests
+│   ├── integration/    # Integration tests
+│   ├── api/           # API tests
+│   └── setup.ts       # Test configuration
+├── scripts/             # Database scripts
+│   ├── create-database.sql
+│   ├── seed-data.sql
+│   └── *.sql           # Various DB scripts
+└── public/             # Static assets
 ```
 
 ## Error Responses
@@ -379,6 +540,7 @@ GET /api/analytics
 All APIs return consistent error responses:
 
 ### 400 Bad Request
+
 ```json
 {
   "error": "All fields are required"
@@ -386,6 +548,7 @@ All APIs return consistent error responses:
 ```
 
 ### 401 Unauthorized
+
 ```json
 {
   "error": "Unauthorized"
@@ -393,6 +556,7 @@ All APIs return consistent error responses:
 ```
 
 ### 404 Not Found
+
 ```json
 {
   "error": "Budget not found"
@@ -400,6 +564,7 @@ All APIs return consistent error responses:
 ```
 
 ### 500 Internal Server Error
+
 ```json
 {
   "error": "Internal server error"
@@ -411,6 +576,7 @@ All APIs return consistent error responses:
 The API uses JWT (JSON Web Tokens) for authentication. Tokens are stored in HTTP-only cookies for security.
 
 ### Cookie Configuration
+
 - **Name**: `token`
 - **HttpOnly**: `true`
 - **Secure**: `true` (in production)
@@ -420,6 +586,7 @@ The API uses JWT (JSON Web Tokens) for authentication. Tokens are stored in HTTP
 ## Database Schema
 
 ### One run schema
+
 ```
 - Go to your sql database workbench/myphpadmin
 - Select import database
@@ -428,7 +595,9 @@ The API uses JWT (JSON Web Tokens) for authentication. Tokens are stored in HTTP
 ```
 
 #### Still like to run sql queries go for it.
+
 ### Users Table
+
 ```sql
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -440,6 +609,7 @@ CREATE TABLE users (
 ```
 
 ### Expenses Table
+
 ```sql
 CREATE TABLE expenses (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -456,6 +626,7 @@ CREATE TABLE expenses (
 ```
 
 ### Budgets Table
+
 ```sql
 CREATE TABLE budgets (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -471,6 +642,7 @@ CREATE TABLE budgets (
 ```
 
 ### Budget Categories Table
+
 ```sql
 CREATE TABLE budget_categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -484,6 +656,7 @@ CREATE TABLE budget_categories (
 ## Available Categories
 
 The application supports the following expense categories:
+
 - Food
 - Transportation
 - Bills
@@ -497,24 +670,6 @@ The application supports the following expense categories:
 ## Currency Format
 
 All monetary values are displayed in Indian Rupees (₹) format using the `formatCurrency` utility function.
-
-## Development
-
-### Running the Application
-```bash
-npm run dev
-```
-
-### Building for Production
-```bash
-npm run build
-npm start
-```
-
-### Linting
-```bash
-npm run lint
-```
 
 ## Features
 
@@ -532,6 +687,31 @@ npm run lint
 - CORS protection
 - SQL injection prevention with prepared statements
 - Input validation and sanitization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Write tests for your changes
+4. Ensure all tests pass: `npm run test:coverage`
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
+
+## 🙏 Acknowledgments
+
+- **Next.js Team** - Amazing React framework
+- **shadcn/ui** - Beautiful component library
+- **Tailwind CSS** - Utility-first CSS framework
+- **Recharts** - Composable charting library
+- **Lucide** - Beautiful icon set
+- **Vercel** - Deployment platform
+- **Jest** - Delightful JavaScript testing framework
+
+## Getting Help
+- 📧 Email: suman@kraftamine.com
+- 💬 Discord: [Join our community](https://discord.gg/zYgSMFpQk3)
+- 🐛 Issues: [GitHub Issues](https://github.com/sumanulto/expense-tracker/issues)
 
 ## Authors
 
