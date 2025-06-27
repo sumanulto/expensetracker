@@ -69,10 +69,10 @@ My comprehensive test suite includes:
 <table align="center">
 <tr>
     <td>
-        <img height="250px" width="258px" src="https://i.ibb.co/Y4b0j5RM/Screenshot-2025-06-27-201608.png" alt="Coverage Screenshot" title="Umbrella"/>
+        <img src="https://i.ibb.co/Y4b0j5RM/Screenshot-2025-06-27-201608.png" alt="Coverage Screenshot" title="Umbrella"/>
     </td>
     <td>
-        <img height="250px" width="258px" src="https://i.ibb.co/qFsWcSRq/Screenshot-2025-06-27-202203.png" alt="Coverage Screenshot" title="Umbrella"/> 
+        <img src="https://i.ibb.co/qFsWcSRq/Screenshot-2025-06-27-202203.png" alt="Coverage Screenshot" title="Umbrella"/> 
     </td>
 </tr>
 </table>
